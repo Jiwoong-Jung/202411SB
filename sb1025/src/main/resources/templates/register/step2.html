@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http//www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<div layout:fragment="content">
+<head>
+  <title th:text="#{member.register}">Member Register</title>
+</head>
+<body>
+<h2 th:text="#{member.info}">Member Info</h2>
+<form th:action="@{/register/step3}" th:object="${registerRequest}" method="post">
+  <p th:if="${#fields.hasErrors('*')}">
+  <div th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+  </p>
+  <p>
+    <label>
+      <span th:text="#{email}">Email</span>:<br>
+      <input type="text" th:field="*{email}" />
+      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </label>
+  </p>
+  <p>
+    <label>
+      <span th:text="#{name}">Name</span>:<br>
+      <input type="text" th:field="*{name}" />
+      <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </label>
+  </p>
+  <p>
+    <label>
+      <span th:text="#{password}">Password</span>:<br>
+      <input type="password" th:field="*{password}" />
+      <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    </label>
+  </p>
+  <p>
+    <label>
+      <span th:text="#{password.confirm}">Confirm Password</span>:<br>
+      <input type="password" th:field="*{confirmPassword}" />
+      <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+    </label>
+  </p>
+  <input type="submit" th:value="#{register.btn}" />
+</form>
+</body>
+</html>
