@@ -10,9 +10,9 @@
 <body>
 <h2 th:text="#{member.info}">Member Info</h2>
 <form th:action="@{/register/step3}" th:object="${registerRequest}" method="post">
-  <p th:if="${#fields.hasErrors('*')}">
-  <div th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
-  </p>
+<!--  <p th:if="${#fields.hasErrors('*')}">-->
+<!--  <div th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>-->
+<!--  </p>-->
   <p>
     <label>
       <span th:text="#{email}">Email</span>:<br>
