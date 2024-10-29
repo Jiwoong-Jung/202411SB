@@ -41,5 +41,59 @@
 	    </table>
 	    <a href="/board/openBoardWrite.do" class="btn">글 쓰기</a>
     </div>
+
+	<!-- 페이징 -->
+	<div th:if="${!list.isEmpty()}">
+		<!-- 전역 변수 선언 -->
+		<nav
+				th:with="pageNumber = ${list.pageable.pageNumber}, pageSize = ${list.pageable.pageSize},totalPages = ${list.totalPages},startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},tempEndPage = ${startPage + pageSize - 1},endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+				aria-label="Page navigation"
+		>
+			<ul class="pagination">
+				<!-- 처음으로 이동 -->
+				<li th:classappend="${pageNumber < pageSize} ? 'disabled'" class="page-item">
+					<a class="page-link" th:href="@{/board/openBoardList.do(page=0)}">
+						<span>&laquo;</span>
+						<span class="sr-only">First</span>
+					</a>
+				</li>
+
+
+				<!-- 이전으로 이동 -->
+				<li th:classappend="${list.first} ? 'disabled'" class="page-item">
+					<a class="page-link" th:href="${list.first} ? '#' : @{/board/openBoardList.do(page=${pageNumber - 1})}" aria-label="Previous">
+						<span aria-hidden="true">&lt;</span>
+						<span class="sr-only">Previous</span>
+					</a>
+				</li>
+
+
+				<!-- 특정 페이지로 이동 -->
+				<li th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == pageNumber + 1} ? 'active'" class="page-item">
+					<a th:text="${page}" class="page-link" th:href="@{/board/openBoardList.do(page=${page - 1})}"></a>
+				</li>
+
+
+				<!-- 다음으로 이동 -->
+				<li th:classappend="${list.last} ? 'disabled'" class="page-item">
+					<a class="page-link" th:href="${list.last} ? '#' : @{/board/openBoardList.do(page=${pageNumber + 1})}" aria-label="Next">
+						<span aria-hidden="true">&gt;</span>
+						<span class="sr-only">Next</span>
+					</a>
+				</li>
+
+
+				<!-- 마지막으로 이동 -->
+				<li th:classappend=" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'" class="page-item">
+					<a class="page-link" th:href="@{/board/openBoardList.do(page=${totalPages - 1})}">
+						<span>&raquo;</span>
+						<span class="sr-only">Last</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div> <!-- /container -->
+
+
 </body>
 </html>
