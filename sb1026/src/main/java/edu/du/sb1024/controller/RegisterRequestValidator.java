@@ -28,17 +28,17 @@ public class RegisterRequestValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		System.out.println("RegisterRequestValidator#validate(): " + this);
 		RegisterRequest regReq = (RegisterRequest) target;
-//		if (regReq.getEmail() == null || regReq.getEmail().trim().isEmpty()) {
-//			errors.rejectValue("email", "required");
-//		} else {
-//			Matcher matcher = pattern.matcher(regReq.getEmail());
-//			if (!matcher.matches()) {
-//				errors.rejectValue("email", "bad");
-//			}
-//		}
-//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
-//		ValidationUtils.rejectIfEmpty(errors, "password", "required");
-//		ValidationUtils.rejectIfEmpty(errors, "confirmPassword", "required");
+		if (regReq.getEmail() == null || regReq.getEmail().trim().isEmpty()) {
+			errors.rejectValue("email", "required");
+		} else {
+			Matcher matcher = pattern.matcher(regReq.getEmail());
+			if (!matcher.matches()) {
+				errors.rejectValue("email", "bad");
+			}
+		}
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
+		ValidationUtils.rejectIfEmpty(errors, "password", "required");
+		ValidationUtils.rejectIfEmpty(errors, "confirmPassword", "required");
 		if (!regReq.getPassword().isEmpty()) {
 			if (!regReq.isPasswordEqualToConfirmPassword()) {
 				errors.rejectValue("confirmPassword", "nomatch");

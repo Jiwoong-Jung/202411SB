@@ -1,17 +1,17 @@
 package edu.du.sb1024.spring;
 
+import lombok.NonNull;
+
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 public class RegisterRequest {
 
-
-	@NotBlank
+	@NotEmpty
 	@Email
 	private String email;
-	@Size(min=6)
+	@NotEmpty
 	private String password;
 	@NotEmpty
 	private String confirmPassword;

@@ -6,12 +6,11 @@ import edu.du.sb1024.spring.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 
 @Controller
@@ -65,15 +64,16 @@ public String handleStep3(@Validated RegisterRequest regReq, Errors errors) {
 		memberRegisterService.regist(regReq);
 		return "register/step3";
 	} catch (DuplicateMemberException ex) {
-			errors.rejectValue("email", "duplicate");
+		errors.rejectValue("email", "duplicate");
 //		errors.reject("notMatchingPassword");
 		return "register/step2";
 	}
 }
 
+	// 특정 컨트롤러에서 바인딩 또는 검증 설정을 변경하고 싶을 때 사용
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		binder.addValidators(new RegisterRequestValidator());
+		binder.setValidator(new RegisterRequestValidator());
 	}
 
 }
