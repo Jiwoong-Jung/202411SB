@@ -44,7 +44,13 @@ public class BoardController {
 		log.info("start: {}, end: {}", start, end);
 		final Page<BoardDto> page = new PageImpl<>(list.subList(start, end), pageable, list.size());
 		// 페이지 객체를 모델에 추가하여 뷰에서 접근 가능하도록 함
-
+		log.info("총페이지 수: {}", page.getTotalPages());
+		log.info("전체 개수: {}", page.getTotalElements());
+		log.info("현재 페이지 번호: {}", page.getNumber());
+		log.info("페이지당 데이터 개수: {}", page.getSize());
+		log.info("다음 페이지 존재 여부: {}", page.hasNext());
+		log.info("이전 페이지 존재 여부: {}", page.hasPrevious());
+		log.info("시작페이지(0) 입니까: {}", page.isFirst());
 		model.addAttribute("list", page);
 		
 		return "/board/boardList";
