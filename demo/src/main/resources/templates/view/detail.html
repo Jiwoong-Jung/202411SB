@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<div layout:fragment="content">
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <span class="input-group-text">번호</span>
+      <input type="text" class="form-control" th:value="${notice.seq}" readonly />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">제목</span>
+      <input type="text" class="form-control" th:value="${notice.title}" readonly />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">내용</span>
+      <textarea type="text" class="form-control col-sm-5" row="5" readonly>[[${notice.content}]]</textarea>
+    </div>
+    <div class="input-group mb-3">
+      <button class="btn btn-primary editBtn">수정</button>
+      <button class="btn btn-danger deleteBtn">삭제</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">수정</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+            <input type="hidden" id="editSeq" name="seq">
+            <div class="mb-3">
+              <label for="editTitle" class="form-label">제목</label>
+              <input type="text" class="form-control" id="editTitle" name="title">
+            </div>
+            <div class="mb-3">
+              <label for="editContent" class="form-label">내용</label>
+              <textarea class="form-control" id="editContent" name="content" rows="5"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary saveEditBtn">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<script layout:fragment="script" th:inline="javascript">
+  /* Thymeleaf 변수를 JavaScript 변수로 변환 */
+  const noticeSeq = /*[[${notice.seq}]]*/ '0';
+  const noticeTitle = /*[[${notice.title}]]*/ '제목 없음';
+  const noticeContent = /*[[${notice.content}]]*/ '내용 없음';
+
+  $(document).ready(function () {
+    $(".editBtn").click(function () {
+      $("#editSeq").val(noticeSeq);
+      $("#editTitle").val(noticeTitle);
+      $("#editContent").val(noticeContent);
+      const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+      editModal.show();
+    });
+
+    $(".saveEditBtn").click(function () {
+      $.ajax({
+        type: "POST",
+        url: "/editNotice",
+        data: $("#editForm").serialize(),
+        success: function (data) {
+          alert("수정되었습니다.");
+          location.reload();
+        },
+        error: function () {
+          alert("수정 실패!");
+        }
+      });
+    });
+
+    $(".deleteBtn").click(function () {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+          type: "POST",
+          url: "/deleteNotice",
+          data: { seq: noticeSeq },
+          success: function (data) {
+            alert("삭제되었습니다.");
+            location.href = "/page2";
+          },
+          error: function () {
+            alert("삭제 실패!");
+          }
+        });
+      }
+    });
+  });
+</script>
