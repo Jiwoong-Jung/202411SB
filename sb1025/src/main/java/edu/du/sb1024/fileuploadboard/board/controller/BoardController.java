@@ -6,7 +6,10 @@ import edu.du.sb1024.fileuploadboard.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,20 +29,19 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping("board/openBoardList.do")
-	public ModelAndView openBoardList() throws Exception{
+	@RequestMapping("/board/openBoardList.do")
+	public String openBoardList(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) throws Exception{
 		log.info("====> openBoardList {}", "테스트");
-		ModelAndView mv = new ModelAndView("board/boardList");
 		
 		List<BoardDto> list = boardService.selectBoardList();
-		mv.addObject("list", list);
+		model.addAttribute("list", list);
 		
-		return mv;
+		return "/board/boardList";
 	}
 	
-	@RequestMapping("board/openBoardWrite.do")
+	@RequestMapping("/board/openBoardWrite.do")
 	public String openBoardWrite() throws Exception{
-		return "board/boardWrite";
+		return "/board/boardWrite";
 	}
 	
 	@RequestMapping("board/insertBoard.do")

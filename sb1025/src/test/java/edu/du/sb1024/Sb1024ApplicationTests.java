@@ -18,7 +18,7 @@ class Sb1024ApplicationTests {
 
     @Test
     void testPage1() {
-        Pageable pageable = PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of(1, 10);
         List<Board> page = boardRepository.findAllByOrderByBoardIdxDesc(pageable);
         page.forEach(board -> System.out.println(board));
     }
