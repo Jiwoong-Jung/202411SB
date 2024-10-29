@@ -41,9 +41,10 @@ public class BoardController {
 		// 현재 페이지의 끝 인덱스를 계산하되, 목록 크기를 초과하지 않도록 함
 		final int end = Math.min((start + pageable.getPageSize()), list.size());
 		// 현재 페이지의 아이템 서브리스트를 포함하는 Page 객체 생성
+		log.info("start: {}, end: {}", start, end);
 		final Page<BoardDto> page = new PageImpl<>(list.subList(start, end), pageable, list.size());
 		// 페이지 객체를 모델에 추가하여 뷰에서 접근 가능하도록 함
-		
+
 		model.addAttribute("list", page);
 		
 		return "/board/boardList";
