@@ -6,6 +6,8 @@ import edu.du.sb1024.fileuploadboard.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -34,7 +36,15 @@ public class BoardController {
 		log.info("====> openBoardList {}", "테스트");
 		
 		List<BoardDto> list = boardService.selectBoardList();
-		model.addAttribute("list", list);
+		// 페이지 정보에 따라 현재 페이지의 시작 인덱스를 계산
+		final int start = (int) pageable.getOffset();
+		// 현재 페이지의 끝 인덱스를 계산하되, 목록 크기를 초과하지 않도록 함
+		final int end = Math.min((start + pageable.getPageSize()), list.size());
+		// 현재 페이지의 아이템 서브리스트를 포함하는 Page 객체 생성
+		final Page<BoardDto> page = new PageImpl<>(list.subList(start, end), pageable, list.size());
+		// 페이지 객체를 모델에 추가하여 뷰에서 접근 가능하도록 함
+		
+		model.addAttribute("list", page);
 		
 		return "/board/boardList";
 	}
