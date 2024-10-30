@@ -3,6 +3,7 @@ package edu.du.sb1030.controller;
 import edu.du.sb1030.spring.DuplicateMemberException;
 import edu.du.sb1030.spring.MemberRegisterService;
 import edu.du.sb1030.spring.RegisterRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,12 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RegisterController {
 
+	@Autowired
 	private MemberRegisterService memberRegisterService;
-
-	public void setMemberRegisterService(
-			MemberRegisterService memberRegisterService) {
-		this.memberRegisterService = memberRegisterService;
-	}
 
 	@RequestMapping("/register/step1")
 	public String handleStep1() {
