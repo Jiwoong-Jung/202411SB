@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,19 +19,18 @@ public class ChangePwdController {
 	private ChangePasswordService changePasswordService;
 
 	@GetMapping
-	public String form(
-			@ModelAttribute("command") ChangePwdCommand pwdCmd) {
-		return "edit/changePwdForm";
+	public String form(@ModelAttribute ChangePwdCommand pwdCmd, Model model) {
+		model.addAttribute("passwordCommand", new ChangePwdCommand());
+		return "/edit/changePwdForm";
 	}
 
 	@PostMapping
-	public String submit(
-			@ModelAttribute("command") ChangePwdCommand pwdCmd,
+	public String submit(@ModelAttribute ChangePwdCommand pwdCmd,
 			Errors errors,
 			HttpSession session) {
 		new ChangePwdCommandValidator().validate(pwdCmd, errors);
 		if (errors.hasErrors()) {
-			return "edit/changePwdForm";
+			return "/edit/changePwdForm";
 		}
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		try {
@@ -38,10 +38,11 @@ public class ChangePwdController {
 					authInfo.getEmail(),
 					pwdCmd.getCurrentPassword(),
 					pwdCmd.getNewPassword());
-			return "edit/changedPwd";
+			System.out.println("------------->" + pwdCmd.getNewPassword());
+			return "/edit/changedPwd";
 		} catch (WrongIdPasswordException e) {
 			errors.rejectValue("currentPassword", "notMatching");
-			return "edit/changePwdForm";
+			return "/edit/changePwdForm";
 		}
 	}
 }
