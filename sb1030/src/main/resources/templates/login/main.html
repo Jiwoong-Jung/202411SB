@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http//www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<div layout:fragment="content">
+<head>
+  <meta charset="UTF-8">
+  <title>메인</title>
+</head>
+<body>
+<div th:if="${#lists.isEmpty(session.authInfo)}">
+  <p>환영합니다.</p>
+  <p>
+    <a th:href="@{/register/step1}">[회원 가입하기]</a>
+    <a th:href="@{/login}">[로그인]</a>
+  </p>
+</div>
+
+<div th:if="${!#lists.isEmpty(session.authInfo)}">
+  <p th:text="${session.authInfo.name} + '님, 환영합니다.'"></p>
+  <p>
+    <a th:href="@{/edit/changePassword}">[비밀번호 변경]</a>
+    <a th:href="@{/logout}">[로그아웃]</a>
+  </p>
+</div>
+</body>
+</html>

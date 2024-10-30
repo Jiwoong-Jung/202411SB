@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http//www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<div layout:fragment="content">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{login.title}">Login Success</title>
+</head>
+<body>
+<p th:text="#{login.done}">Login successful.</p>
+<p>
+  <a th:href="@{/main}">
+    [<span th:text="#{go.main}">Go to main</span>]
+  </a>
+</p>
+</body>
+</html>
