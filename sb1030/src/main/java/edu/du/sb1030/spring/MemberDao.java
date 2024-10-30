@@ -24,10 +24,6 @@ public class MemberDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-//	public MemberDao(DataSource dataSource) {
-//		this.jdbcTemplate = new JdbcTemplate(dataSource);
-//	}
-
 	public Member selectByEmail(String email) {
 		List<Member> results = jdbcTemplate.query(
 				"select * from MEMBER where EMAIL = ?",

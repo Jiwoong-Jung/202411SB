@@ -17,11 +17,6 @@ public class ChangePwdController {
 	@Autowired
 	private ChangePasswordService changePasswordService;
 
-//	public void setChangePasswordService(
-//			ChangePasswordService changePasswordService) {
-//		this.changePasswordService = changePasswordService;
-//	}
-
 	@GetMapping
 	public String form(
 			@ModelAttribute("command") ChangePwdCommand pwdCmd) {
