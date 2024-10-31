@@ -19,6 +19,9 @@ public class EventController {
         log.info(msg);
         Order order = new Order();
         order.setProductName(msg);
+        order.setPrice(100);
+        order.setQuantity(1);
+        order.setId(100L);
         customEventPublisher.doStuffAndPublishAnEvent(order);
 
     }
