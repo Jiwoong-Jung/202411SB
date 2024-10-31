@@ -3,6 +3,7 @@ package edu.du.sb1031.order;
 import edu.du.sb1031.event.CustomEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,9 +55,9 @@ public class OrderController {
 
     @PostMapping("/save")
     public String saveOrder(@ModelAttribute Order order) {
-        log.info("Order created: " + order);
-        customEventPublisher.doStuffAndPublishAnEvent(order.toString());
-        orderService.saveOrder(order);
+        log.info("Order created: {}", order);
+        Order order1 = orderService.saveOrder(order);
+        customEventPublisher.doStuffAndPublishAnEvent(order1);
         return "redirect:/orders";
     }
 
