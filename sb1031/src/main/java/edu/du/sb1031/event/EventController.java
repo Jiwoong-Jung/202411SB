@@ -15,9 +15,11 @@ public class EventController {
     private final CustomEventPublisher customEventPublisher;
 
     @GetMapping("/event/{msg}")
-    public void event(@PathVariable Order msg) {
-        log.info(msg.toString());
-        customEventPublisher.doStuffAndPublishAnEvent(msg);
+    public void event(@PathVariable String msg) {
+        log.info(msg);
+        Order order = new Order();
+        order.setProductName(msg);
+        customEventPublisher.doStuffAndPublishAnEvent(order);
 
     }
 }
