@@ -26,7 +26,7 @@ public class ShipmentController {
     public String getAllShipments(Model model) {
         List<Shipment> shipments = shipmentService.getAllShipments();
         model.addAttribute("shipments", shipments);
-        return "shipmentList";
+        return "/shipment/shipmentList";
     }
 
     @GetMapping("/{id}")
@@ -44,7 +44,7 @@ public class ShipmentController {
     @GetMapping("/new")
     public String newShipmentForm(Model model) {
         model.addAttribute("shipment", new Shipment());
-        return "shipmentForm";
+        return "/shipment/shipmentForm";
     }
 
     @PostMapping("/save")
