@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Order</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>New Order</h1>
+    <form id="orderForm" th:object="${order}">
+        <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="productName" th:field="*{productName}">
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity" th:field="*{quantity}">
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" step="0.01" class="form-control" id="price" th:field="*{price}">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#orderForm').submit(function(event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 막음
+
+            var formData = {
+                productName: $('#productName').val(),
+                quantity: $('#quantity').val(),
+                price: $('#price').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/orders/save',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function(response) {
+                    console.log("나온다");
+                    alert('Order saved successfully!');
+                    window.location.href = '/orders';
+                },
+                error: function(error) {
+                    alert('Failed to save order.');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

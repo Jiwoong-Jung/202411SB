@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shipment List</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Shipment List</h1>
+    <a class="btn btn-primary" th:href="@{/shipments/new}">New Shipment</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="shipment : ${shipments}">
+            <td th:text="${shipment.id}">1</td>
+            <td th:text="${shipment.productName}">Product Name</td>
+            <td th:text="${shipment.quantity}">1</td>
+            <td th:text="${shipment.price}">100.0</td>
+            <td th:text="${shipment.status}">주문 접수</td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/shipments/delete/{id}(id=${shipment.id})}">Delete</a>
+                <form th:action="@{/shipments/updateStatus}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${shipment.id}">
+                    <input type="hidden" name="status" value="배송 중">
+                    <button type="submit" class="btn btn-warning">배송 중</button>
+                </form>
+                <form th:action="@{/shipments/updateStatus}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${shipment.id}">
+                    <input type="hidden" name="status" value="배송 완료">
+                    <button type="submit" class="btn btn-success">배송 완료</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
