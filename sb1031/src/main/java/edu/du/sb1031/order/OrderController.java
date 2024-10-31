@@ -1,5 +1,7 @@
 package edu.du.sb1031.order;
 
+import edu.du.sb1031.event.CustomEventPublisher;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +14,11 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/orders")
 @Slf4j
+@RequiredArgsConstructor
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final CustomEventPublisher customEventPublisher;
+    private final OrderService orderService;
 
     @PostMapping
     @ResponseBody
@@ -52,6 +55,7 @@ public class OrderController {
     @PostMapping("/save")
     public String saveOrder(@ModelAttribute Order order) {
         log.info("Order created: " + order);
+        customEventPublisher.doStuffAndPublishAnEvent(order.toString());
         orderService.saveOrder(order);
         return "redirect:/orders";
     }
