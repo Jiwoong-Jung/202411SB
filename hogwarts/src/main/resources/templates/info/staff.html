@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/fragments/header.html :: fragment-header"></div>
+<body>
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+<link rel="stylesheet" href="/css/myInfo.css">
+
+<!-- 세부 메뉴 + 메인 -->
+<div class="d-flex justify-content-center align-items-start" style="min-width: 100em;">
+  <!-- 세부 메뉴 div-->
+  <div class="sub--menu">
+    <div class="sub--menu--top">
+      <h2>MY</h2>
+    </div>
+    <!-- 메뉴 -->
+    <!-- 선택된 메뉴에 class="selected--menu" 추가해주세요 -->
+    <div class="sub--menu--mid">
+      <table class="sub--menu--table" border="1">
+        <tr>
+          <td><a href="/info/staff" class="selected--menu">내 정보 조회</a></td>
+        </tr>
+        <tr>
+          <td><a href="/password">비밀번호 변경</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 메인 div -->
+  <main>
+    <h1>내 정보 조회</h1>
+    <div class="split--div"></div>
+    <table border="1" class="input--table" >
+      <colgroup>
+        <col class="col1">
+        <col class="col2">
+        <col class="col3">
+        <col class="col4">
+      </colgroup>
+      <tr>
+        <th>ID</th>
+        <td>230001</td>
+        <th>입사 날짜</th>
+        <td>2023-01-01</td>
+      </tr>
+    </table>
+    <table border="1" class="input--table" >
+      <colgroup>
+        <col class="col1">
+        <col class="col2">
+        <col class="col3">
+        <col class="col4">
+      </colgroup>
+      <tr>
+        <th>성명</th>
+        <td>박성희</td>
+        <th>생년월일</th>
+        <td>1995-09-03</td>
+      </tr>
+      <tr>
+        <th>성별</th>
+        <td>여성</td>
+        <th>주소</th>
+        <td>부산시 부산진구</td>
+      </tr>
+      <tr>
+        <th>연락처</th>
+        <td>010-9930-2889</td>
+        <th>email</th>
+        <td>sungheepppp@gmail.com</td>
+      </tr>
+    </table>
+    <button type="button" onclick="location.href='/update'" class="btn btn-dark update--button">수정하기</button>
+  </main>
+</div>
+
+
+
+<footer>
+  <!-- 필요 시 -->
+</footer>
+
+</div>
+
+</body>
+</html>
