@@ -10,4 +10,9 @@ public class BeginCotroller {
     public String index() {
         return "main";
     }
+
+    @GetMapping("/info/staff")
+    public void info() {
+
+    }
 }
