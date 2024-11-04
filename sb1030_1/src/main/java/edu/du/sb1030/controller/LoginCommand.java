@@ -1,5 +1,8 @@
 package edu.du.sb1030.controller;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class LoginCommand {
 
 	private String email;

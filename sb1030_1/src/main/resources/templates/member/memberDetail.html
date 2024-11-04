@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>회원 정보</title>
+</head>
+<body>
+<p>아이디: <span th:text="${member.id}"></span></p>
+<p>이메일: <span th:text="${member.email}"></span></p>
+<p>이름: <span th:text="${member.name}"></span></p>
+<p>가입일: <span th:text="${#temporals.format(member.registerDateTime, 'yyyy-MM-dd HH:mm')}"></span></p>
+</body>
+</html>

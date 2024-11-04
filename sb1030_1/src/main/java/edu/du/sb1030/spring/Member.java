@@ -1,7 +1,12 @@
 package edu.du.sb1030.spring;
 
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@ToString
 public class Member {
 
 	private Long id;
