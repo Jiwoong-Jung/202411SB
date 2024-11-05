@@ -22,10 +22,12 @@ public class MemberListController {
 	public String list(
 			@ModelAttribute("cmd") ListCommand listCommand,
 			Errors errors, Model model) {
+		System.out.println("1:"+ listCommand);
 		if (errors.hasErrors()) {
 			return "member/memberList";
 		}
 		if (listCommand.getFrom() != null && listCommand.getTo() != null) {
+			System.out.println("2:"+listCommand);
 			List<Member> members = memberDao.selectByRegdate(
 					listCommand.getFrom(), listCommand.getTo());
 			model.addAttribute("members", members);

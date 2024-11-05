@@ -2,13 +2,16 @@ package edu.du.sb1030.controller;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@ToString
 public class ListCommand {
 
-	@DateTimeFormat(pattern = "yyyyMMddHH")
+	@DateTimeFormat(pattern = "yyyyMM")
 	private LocalDateTime from;
-	@DateTimeFormat(pattern = "yyyyMMddHH")
+	@DateTimeFormat(pattern = "yyyyMM")
 	private LocalDateTime to;
 
 	public LocalDateTime getFrom() {
