@@ -3,6 +3,7 @@ package edu.du.sb1024.controller;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +27,15 @@ public class SampleController {
 
 //    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
-    public void exAdmin(){
-        log.info("exAdmin..........");
+    public void exAdmin(Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        log.info("exAdmin..........{}", userDetails.getUsername());
     }
 
     @GetMapping("/member")
-    public void exMember(){
-        log.info("exMember..........");
+    public void exMember(Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        log.info("exMember.........{}", userDetails.getUsername());
     }
 
     @GetMapping("/login")

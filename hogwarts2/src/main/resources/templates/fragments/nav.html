@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="fragment-nav">
+        <header class="d-flex flex-column">
+            <div class="header--top">
+                <ul>
+                    <li class="material--li"><span class="material-symbols-outlined">account_circle</span>
+                    <li>박성희님 (230001)
+                    <li style="margin: 0 15px;">ㅣ
+                    <li class="material--li"><span style="color: #9BD2EC;" class="material-symbols-outlined">logout</span>
+                    <li><a href="/login">로그아웃</a>
+                </ul>
+            </div>
+
+            <nav class="main--menu">
+                <a href="/"><img class="logo" alt="" src="/images/logo.png"></a>
+                <!-- userRole에 따라 메뉴 다르게 표시 -->
+                <ul>
+                    <li><a href="/">홈</a>
+                    <li><a href="/info/staff">MY</a>
+                    <li><a href="/user/studentList">회원관리</a>
+                    <li><a href="/admin/college">등록</a>
+                    <li><a href="/notice">정보</a>
+                </ul>
+            </nav>
+        </header>
+    </div>
+</html>
