@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+<link rel="stylesheet" href="/css/mainPage.css">
+<div th:replace="/fragments/header.html :: fragment-header"></div>
+<body onLoad="javascript:pop()">
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+<link rel="stylesheet" href="/css/notice.css">
+<!-- 세부 메뉴 + 메인 -->
+<div class="d-flex justify-content-center align-items-start" style="min-width: 100em;">
+  <!-- 세부 메뉴 div-->
+  <div class="sub--menu">
+    <div class="sub--menu--top">
+      <h2>정보</h2>
+    </div>
+    <!-- 메뉴 -->
+    <!-- 선택된 메뉴에 class="selected--menu" 추가해주세요 -->
+    <div class="sub--menu--mid">
+      <table class="sub--menu--table" border="1">
+        <tr>
+          <td><a href="/notice" class="selected--menu">공지사항</a></td>
+        </tr>
+        <tr>
+          <td><a href="/schedule">일정</a></td>
+        </tr>
+
+        <tr>
+          <td><a href="/schedule/list">일정 등록</a></td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+  <!-- 메인 div -->
+  <main>
+    <h1>공지사항</h1>
+    <div class="split--div"></div>
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <span class="input-group-text">번호</span>
+      <input type="text" class="form-control" th:value="${notice.seq}" readonly />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">제목</span>
+      <input type="text" class="form-control" th:value="${notice.title}" readonly />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">내용</span>
+      <textarea type="text" class="form-control col-sm-5" row="5" readonly>[[${notice.content}]]</textarea>
+    </div>
+  </div>
+
+
+</div>
+
+<script layout:fragment="script" th:inline="javascript">
+  console.log("script.....................");
+  function viewModal() {
+    let actionForm = $("form");
+    const modal = new bootstrap.Modal(document.querySelector(".modal"));
+    modal.show();
+    $(".savBtn").click(function () {
+      //var params = jQuery("#f1").serialize()
+      $.ajax({
+        type: "Post",
+        url: "/addNotice?"+actionForm.serialize(),
+        dataType: "text",
+        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+        error: function () {
+          console.log('통신실패!!');
+        },
+        success: function (data) {
+          console.log("통신데이터 값 : " + data);
+          $("#reply").html('<p>' + data + '</p>');
+          modal.hide();
+        }
+      });
+    });
+  }
+</script>
+<footer>
+  <!-- 필요 시 -->
+</footer>
+
+</div>
+
+</body>
+</html>

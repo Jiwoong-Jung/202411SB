@@ -49,7 +49,7 @@
 
 .main--page--calander tr td:last-of-type {
 	font-size: 19px;
-	max-width: 400px;
+	max-width: 500px;
 	min-width: 341px;
 	white-space: nowrap;
 	overflow: hidden;

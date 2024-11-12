@@ -2,7 +2,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -32,11 +32,11 @@
         <a href="#"><img class="logo" alt="" src="/images/logo_name.png"></a>
     </div>
 
-    <form action="/login" method="post" class="main--container">
+    <form action="/login" method="post" class="main--container" th:object="${loginUser}">
         <div class="login--container">
             <div class="id--container">
                 <div class="login--id">
-                    <label for="userId"><span class="material-symbols-outlined">person</span></label> <input type="number" max="2147483647" name="id" id="userId" placeholder="아이디를 입력하세요" required value="">
+                    <label for="username"><span class="material-symbols-outlined">person</span></label> <input type="text" name="username" id="username" placeholder="아이디를 입력하세요" required value="">
 
 
                     <div class="checkbox--id">

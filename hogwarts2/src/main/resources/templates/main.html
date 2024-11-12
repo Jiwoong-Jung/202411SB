@@ -20,33 +20,13 @@
             </h3>
             <div class="main--page--split"></div>
             <table>
-
-              <tr>
-                <td><a href="/notice/read?id=6">[장학]&nbsp;2023학년도 교외장학재단 신규장학생 선발 결과 안내</a></td>
-                <td>2024-11-01
+              <tr th:each="notice : ${list}">
+<!--                <th scope="row"><a th:href="@{/detail(seq=${notice.seq})}">[[${notice.seq}]]</a></th>-->
+                <td><a th:href="@{/detail(seq=${notice.seq})}">[[${notice.title}]]</a></td>
+                <td th:text="${#temporals.format(notice.regdate, 'yyyy.MM.dd')}"></td>
               </tr>
-
-              <tr>
-                <td><a href="/notice/read?id=5">[일반]&nbsp;2023학년도 1학기 코로나 19 특별휴학 시행 안내</a></td>
-                <td>2024-11-01
-              </tr>
-
-              <tr>
-                <td><a href="/notice/read?id=4">[일반]&nbsp;2023학년도 장애 인식개선 교육(법정의무교육) 안내</a></td>
-                <td>2024-11-01
-              </tr>
-
-              <tr>
-                <td><a href="/notice/read?id=3">[일반]&nbsp;Gartner Research(IT 분야 시장분석) 서비스 지원 안내</a></td>
-                <td>2024-11-01
-              </tr>
-
-              <tr>
-                <td><a href="/notice/read?id=2">[장학]&nbsp;2023학년도 보건장학회 연구지원장학생 선발 안내</a></td>
-                <td>2024-11-01
-              </tr>
-
             </table>
+
           </div>
           <div class="main--page--calander">
             <h3>
@@ -95,7 +75,7 @@
         <div class="main--page--profile">
           <ul class="d-flex align-items-start" style="margin: 0;">
             <li><span class="material-symbols-rounded" style="margin-top: 2px;">person</span>&nbsp;&nbsp;
-            <li style="font-weight: 600; font-size: 18px;">박성희님,&nbsp;환영합니다.
+            <li style="font-weight: 600; font-size: 18px;">[[${loginUser.username}]]님,&nbsp;환영합니다.
           </ul>
           <hr style="width: 100%;">
 
