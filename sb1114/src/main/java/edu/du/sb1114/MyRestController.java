@@ -1,6 +1,7 @@
 package edu.du.sb1114;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -19,9 +20,15 @@ public class MyRestController {
         return name;
     }
 
+//    @PostMapping("/account")
+//    public Account account(@RequestBody Account account) {
+//        log.info(account.toString());
+//        return account;
+//    }
+
     @PostMapping("/account")
-    public String account(@RequestBody Account account) {
+    public ResponseEntity<?> account(@RequestBody Account account) {
         log.info(account.toString());
-        return account.toString();
+        return ResponseEntity.ok(account);
     }
 }
