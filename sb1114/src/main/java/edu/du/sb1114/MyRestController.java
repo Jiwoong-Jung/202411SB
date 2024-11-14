@@ -1,10 +1,7 @@
 package edu.du.sb1114;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -20,5 +17,11 @@ public class MyRestController {
     public String account(@PathVariable String name) {
         log.info(name);
         return name;
+    }
+
+    @PostMapping("/account")
+    public String account(@RequestBody Account account) {
+        log.info(account.toString());
+        return account.toString();
     }
 }
