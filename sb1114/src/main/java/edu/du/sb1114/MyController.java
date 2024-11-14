@@ -15,16 +15,5 @@ public class MyController {
         return "index";
     }
 
-    @GetMapping("/hello")
-    @ResponseBody
-    public LocalDateTime hello() {
-        return LocalDateTime.now();
-    }
 
-    @GetMapping("/Account/{name}")
-    @ResponseBody
-    public String account(@PathVariable String name) {
-        log.info(name);
-        return name;
-    }
 }
