@@ -29,7 +29,7 @@ public class MyController {
     private final NoticeService noticeService;
 
     @GetMapping("/page2")
-    public String listAction(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable, @SessionAttribute(name = "loginUser", required = false) LoginUser loginUser) {
+    public String listAction(Model model, @PageableDefault(page = 0, size = 6) Pageable pageable, @SessionAttribute(name = "loginUser", required = false) LoginUser loginUser) {
         //List<Notice> list = noticeRepository.findAll();
         List<Notice> list = noticeRepository.findAllByOrderBySeqDesc();
         final int start = (int) pageable.getOffset();

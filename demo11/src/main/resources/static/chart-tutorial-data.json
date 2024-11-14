@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "year": 2016,
+      "total": 140403,
+      "father": 11965,
+      "mother": 128438
+    },
+    {
+      "year": 2017,
+      "total": 142038,
+      "father": 18160,
+      "mother": 123878
+    },
+    {
+      "year": 2018,
+      "total": 153741,
+      "father": 25062,
+      "mother": 128679
+    },
+    {
+      "year": 2019,
+      "total": 163256,
+      "father": 32051,
+      "mother": 131205
+    },
+    {
+      "year": 2020,
+      "total": 171959,
+      "father": 38813,
+      "mother": 133146
+    },
+    {
+      "year": 2021,
+      "total": 173631,
+      "father": 41910,
+      "mother": 131721
+    }
+  ]
+}

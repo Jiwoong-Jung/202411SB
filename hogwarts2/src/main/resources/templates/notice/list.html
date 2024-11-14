@@ -144,18 +144,22 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-secondary"
-                  data-bs-dismiss="modal">Close</button>
-          <button type="button"
-                  class="btn-primary savBtn">Save</button>
+<!--          <button type="button" class="btn-secondary"-->
+<!--                  data-bs-dismiss="modal">Close</button>-->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<!--          <button type="button"-->
+<!--                  class="btn-primary savBtn">Save</button>-->
+          <button type="button" class="btn btn-primary savBtn">Save changes</button>
         </div>
       </div>
     </div>
   </div>
 
-
+  </main>
 </div>
-
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
+<script th:src="@{/js/scripts.js}"></script>
 <script>
 
   function viewModal(data) {
@@ -175,6 +179,7 @@
           console.log('통신실패!!');
         },
         success: function(data) {
+          alert("글 작성 완료!");
           console.log("통신데이터 값 : " + data);
           modal.hide();
           location.reload();

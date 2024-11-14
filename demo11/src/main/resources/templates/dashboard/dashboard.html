@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <script src="https://d3js.org/d3.v5.min.js"></script>
+	    <title>Dashboard</title>
+	</head>
+	<body>
+	    <p th:text="'Dashboard - ' + ${name} + '!'" />
+	    
+	    <div id="shuffle"></div>
+	    <div id="charts" class="container text-center"></div>
+	    
+		<!-- <svg>
+		 <rect x="10" y="15" width="60" height="20" />
+		 <line x1="95" y1="35" x2="105" y2="15" />
+		 <circle cx="130" cy="25" r="6" />
+		</svg> -->
+	    
+	    <script th:inline="javascript">
+			 // this example is based on General Update Pattern, III by Mike Bostock
+			 // you can find it here: http://bl.ocks.org/mbostock/3808234
+		
+			 var names = ['Sarah', 'Maria', 'Marc', 'Robert', 'Sam', 'Mike', 'Nora', 'Eugene'];
+		
+			 var width = 650,
+			     height = 100;
+		
+			 var svg = d3.select("#shuffle").append("svg")
+			     .attr("width", width)
+			     .attr("height", height)
+			     .append("g")
+			     .attr("transform", "translate(15," + (height / 2) + ")");
+		
+			 function update(data) {
+		
+			     // DATA JOIN
+			     // Join new data with old elements, if any.
+			     var text = svg.selectAll("text")
+			         .data(data, function (d) {
+			         return d;
+			     });
+		
+			     // UPDATE
+			     // Update old elements as needed.
+			     text.attr("class", "update")
+			         .transition()
+			         .duration(750)
+			         .attr("x", function (d, i) {
+			         return i * 90;
+			     });
+		
+			     // ENTER
+			     // Create new elements as needed.
+			     text.enter().append("text")
+			         .attr("class", "enter")
+			         .attr("dy", ".35em")
+			         .attr("y", -60)
+			         .attr("x", function (d, i) {
+			         return i * 90;
+			     })
+			         .style("fill-opacity", 1e-6)
+			         .text(function (d) {
+			         return d;
+			     })
+			         .transition()
+			         .duration(750)
+			         .attr("y", 0)
+			         .style("fill-opacity", 1);
+		
+			     // EXIT
+			     // Remove old elements as needed.
+			     text.exit()
+			         .attr("class", "exit")
+			         .transition()
+			         .duration(750)
+			         .attr("y", 60)
+			         .style("fill-opacity", 1e-6)
+			         .remove();
+			 }
+		
+			 // The initial display.
+			 update(names);
+		
+			 setInterval(function () {
+			     update(shuffle(names)
+			         .slice(0, 3 + Math.floor(Math.random() * 4.9))
+			         .sort());
+			 }, 1500);
+		
+			 // Shuffles the input array.
+			 function shuffle(array) {
+			     var m = array.length,
+			         t, i;
+			     while (m) {
+			         i = Math.floor(Math.random() * m--);
+			         t = array[m], array[m] = array[i], array[i] = t;
+			     }
+			     return array;
+			 }
+			 
+             //////////////////////////////////////////////////////////
+             // CHARTS
+             //////////////////////////////////////////////////////////
+			 
+			 var chartData = [
+			        {title: "don't know D3 at all", value: 20},
+			        {title: "already heard of D3", value: 100},
+			        {title: "once used D3", value: 35},
+			        {title: "use D3 regularly", value: 5},
+			        {title: "contribute to D3", value: 0}];
+
+			    var svg2 = d3.select("#charts").append("svg")
+	                .attr("width", width)
+	                .attr("height", height);
+
+			    var xScale = function (data) {return d3.scale.linear().range([0, 350]).domain([0, d3.max(data, function(d) {return d.value;})]);};
+
+			    var yValues = function (d, i) {return i * 25;};
+
+			    var axis = function (data) {return d3.svg2/*.axis(). scale(xScale(data)).orient("bottom")*/};
+
+
+			    //////////////////////////////////////////////////////////
+			    // Bar CHART
+			    //////////////////////////////////////////////////////////
+
+				var data = [30, 86, 168, 281, 303, 365];
+			    
+				var passedData = /*[[${data}]]*/ 'default';
+				
+				d3.select("#charts")
+				  .selectAll("div")
+				  .data(passedData)
+				    .enter()
+				    .append("div")
+				    .style("width", function(d) { return d + "px"; })
+				    .text(function(d) { return d; });
+			 
+                //////////////////////////////////////////////////////////
+                // Pie CHART
+                //////////////////////////////////////////////////////////
+				
+	    </script>
+	    
+	    <style type="text/css">
+			#charts div {
+			  font: 10px sans-serif;
+			  background-color: steelblue;
+			  text-align: right;
+			  padding: 3px;
+			  margin: 1px;
+			  color: white;
+			}
+	    </style>
+	    
+	    <p><a href="/">Go back</a></p>
+	</body>
+</html>

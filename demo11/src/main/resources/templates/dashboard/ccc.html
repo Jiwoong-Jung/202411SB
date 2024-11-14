@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 차트 그리는 영역 -->
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<!-- chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- chart.js customize -->
+<script>
+    //데이터 불러오기
+    fetch('chart-tutorial-data.json')
+        .then( res => res.json() )
+        .then( data => {
+            // console.log(data.items);
+            const chartdata = data.items;
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'bar', //bar | line | doughnut | bubble | polarArea | radar | scatter
+                data: {
+                    labels: chartdata.map(item => item.year),
+                    datasets: [
+                        {
+                            label: '계',
+                            // data: [142038, 153741, 163256, 171959, 173631],
+                            data: chartdata.map(item => item.total),
+                            borderWidth: 0,
+                            backgroundColor:'#94B6DE',
+                            color:'#000',
+                        },
+                        {
+                            label: '부',
+                            data: chartdata.map(item => item.father),
+                            borderWidth: 0,
+                            backgroundColor:'#efc026'
+                        },
+                        {
+                            label: '모',
+                            data: chartdata.map(item => item.mother),
+                            borderWidth: 0,
+                            backgroundColor:'#c2e529'
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x:{
+                            // type: 'time'
+                        },
+                        y: {
+                            beginAtZero: true,
+                        }
+                    },
+                    animation:true, //true | false
+                    tooltip:{
+                        enabled: false
+                    },
+                    plugins:{
+                        title:{
+                            display:true,
+                            text:'전체 육아휴직자 수', //string
+                            align:'center', //start | center | end
+                            padding: {
+                                top: 10,
+                                bottom:20
+                            },
+                            font:{
+                                family: "'Noto Sans KR', sans-serif",
+                                weight:'normal', //normal | bold
+                                size: '16',
+                                lineHeight: 1.2
+                            }
+                        },
+                        subtitle:{
+                            display:true,
+                            text:'커스텀 차트 서브타이틀'
+                        }
+                    }
+                }
+            });
+
+        })
+        .catch( (error) => { console.log(error) })
+</script>
+</body>
+</html>

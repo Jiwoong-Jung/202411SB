@@ -50,7 +50,7 @@ public class BeginCotroller {
 
     @PostMapping("/login")
     public String login(@ModelAttribute LoginUser loginUser, HttpSession session) {
-        session.setAttribute("loginUser", loginUser);
+//        session.setAttribute("loginUser", loginUser);
         return "redirect:/";
     }
 
