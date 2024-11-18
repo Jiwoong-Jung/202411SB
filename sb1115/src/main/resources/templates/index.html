@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.js Bar Chart</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    .bar {
+      fill: steelblue;
+    }
+    .bar:hover {
+      fill: orange;
+    }
+    .axis-label {
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<svg width="600" height="400"></svg>
+
+<script>
+  // 데이터 배열
+  const data = [30, 80, 45, 60, 20, 90, 55];
+
+  // SVG 컨테이너 선택 (width 600px, height 400px)
+  const svg = d3.select("svg")
+          .attr("width", 600)
+          .attr("height", 400);
+
+  // x축과 y축의 스케일 정의
+  const xScale = d3.scaleBand()
+          .domain(d3.range(data.length))  // 데이터 길이에 맞게 x축 값을 생성
+          .range([0, 600])               // x축 범위 설정
+          .padding(0.1);                 // 바들 간의 간격 설정
+
+  const yScale = d3.scaleLinear()
+          .domain([0, d3.max(data)])    // y축의 값 범위는 데이터의 최대값까지
+          .nice()                       // nice()는 축 값을 조금 더 보기 좋게 조정
+          .range([400, 0]);             // y축의 범위 설정
+
+  // 바 차트 그리기
+  svg.selectAll(".bar")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("x", (d, i) => xScale(i))          // x축 위치 설정
+          .attr("y", d => yScale(d))               // y축 위치 설정
+          .attr("width", xScale.bandwidth())       // 바의 너비 설정
+          .attr("height", d => 400 - yScale(d));   // 바의 높이는 y값에 비례
+
+  // x축 그리기
+  svg.append("g")
+          .attr("transform", "translate(0, 400)")  // x축 위치를 하단으로 이동
+          .call(d3.axisBottom(xScale))
+          .selectAll(".tick text")
+          .attr("class", "axis-label");
+
+  // y축 그리기
+  svg.append("g")
+          .call(d3.axisLeft(yScale))
+          .selectAll(".tick text")
+          .attr("class", "axis-label");
+
+  // 바에 레이블 추가 (각 바 위에 값 표시)
+  svg.selectAll(".text")
+          .data(data)
+          .enter()
+          .append("text")
+          .attr("x", (d, i) => xScale(i) + xScale.bandwidth() / 2) // 바의 중앙에 텍스트 위치
+          .attr("y", d => yScale(d) - 10)                       // 텍스트를 바 위로 위치
+          .attr("text-anchor", "middle")
+          .text(d => d);  // 각 바의 값 표시
+</script>
+</body>
+</html>
