@@ -26,8 +26,13 @@ let main = {
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function() {
-            alert('글이 등록되었습니다.');
+        }).done(function(x) {
+            if (x == 0) {
+                alert('다시 입력해 주세요!');
+            } else {
+                alert('글이 등록되었습니다.');
+            }
+
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
