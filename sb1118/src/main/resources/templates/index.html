@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>스프링부트 웹서비스</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<h1>스프링부트 JSON으로 게시판</h1>
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-6">
+      <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+      <div th:if="${userName}">
+        Logged in as: <span id="user" th:text="${userName}"></span>
+        <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+      </div>
+      <div th:if="${userName == null}">
+        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+        <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!-- 목록 출력 영역 -->
+  <table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+      <th>게시글번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>최종수정일</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    <tr th:each="post : ${posts}">
+      <td th:text="${post.id}"></td>
+      <td><a th:href="@{/posts/update/{id}(id=${post.id})}" th:text="${post.title}"></a></td>
+      <td th:text="${post.author}"></td>
+      <td th:text="${post.modifiedDate}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.min.js}"></script>
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/app/index.js}"></script>
+</body>
+</html>
