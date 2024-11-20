@@ -1,11 +1,11 @@
-package project1.mongo.controller;
+package edu.du.sb1120.controller;
 
+import edu.du.sb1120.repository.MyDataMongo;
+import edu.du.sb1120.repository.MyDataMongoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project1.mongo.repository.MyDataMongo;
-import project1.mongo.repository.MyDataMongoRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

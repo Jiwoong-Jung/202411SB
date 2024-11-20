@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -18,11 +19,11 @@ public class MyDataMongo {
 
     private String name;
     private String memo;
-    private Date date;
+    private LocalDateTime date;
 
     public MyDataMongo(String name, String memo) {
         this.name = name;
         this.memo = memo;
-        this.date = new Date();
+        this.date = LocalDateTime.now();
     }
 }

@@ -5,36 +5,115 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8" />
     <style>
-	h1 { font-size:18pt; font-weight:bold; color:gray; }
-	body { font-size:13pt; color:gray; margin:5px 25px; }
-	tr { margin:5px; }
-	th { padding:5px; color:white; background:darkgray; }
-	td { padding:5px; color:black; background:#e0e0ff; }
-	table.navi {width:100%; background:white; }
-	table.navi tr { background:white; }
-	table.navi tr td { background:white; }
-	.err { color:red; }
-	</style>
+        h1 { font-size:18pt; font-weight:bold; color:gray; }
+        body { font-size:13pt; color:gray; margin:5px 25px; }
+        tr { margin:5px; }
+        th { padding:5px; color:white; background:darkgray; }
+        td { padding:5px; color:black; background:#e0e0ff; }
+        table.navi {width:100%; background:white; }
+        table.navi tr { background:white; }
+        table.navi tr td { background:white; }
+        .err { color:red; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('table').on('click', 'td[data-id]', function() {
+                fillForm($(this).data('id'));
+            });
+
+            function fillForm(id) {
+                const name = $('#name-' + id).text();
+                const memo = $('#memo-' + id).text();
+                $('#form-name').val(name);
+                $('#form-memo').val(memo);
+                $('#form-id').val(id);
+            }
+
+            $('#insert-button').click(function() {
+                const name = $('#form-name').val();
+                const memo = $('#form-memo').val();
+                $.ajax({
+                    url: '/insert',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ name: name, memo: memo }),
+                    success: function() {
+                        alert('Insert successful');
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Insert failed');
+                    }
+                });
+            });
+
+            $('#update-button').click(function() {
+                const id = $('#form-id').val();
+                const name = $('#form-name').val();
+                const memo = $('#form-memo').val();
+                $.ajax({
+                    url: '/update/' + id,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ name: name, memo: memo }),
+                    success: function() {
+                        alert('Update successful');
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Update failed');
+                    }
+                });
+            });
+
+            $('#delete-button').click(function() {
+                const id = $('#form-id').val();
+                $.ajax({
+                    url: '/delete/' + id,
+                    type: 'DELETE',
+                    success: function() {
+                        alert('Delete successful');
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Delete failed');
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <h1 th:text="#{content.title}">Helo page</h1>
 <p th:text="${msg}"></p>
 <table>
-    <form method="post" action="/">
-        <tr><td><label for="name">이름</label></td>
-            <td><input type="text" name="name" required /></td></tr>
-        <tr><td><label for="memo">메모</label></td>
-            <td><textarea name="memo"
-                          cols="20" rows="5"></textarea></td></tr>
-        <tr><td></td><td><input type="submit" /></td></tr>
+    <form id="dataForm">
+        <input type="hidden" id="form-id" />
+        <tr>
+            <td><label for="form-name">이름</label></td>
+            <td><input type="text" id="form-name" name="name" required /></td>
+        </tr>
+        <tr>
+            <td><label for="form-memo">메모</label></td>
+            <td><textarea id="form-memo" name="memo" cols="20" rows="5"></textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="button" id="insert-button">Insert</button>
+                <button type="button" id="update-button">Update</button>
+                <button type="button" id="delete-button">Delete</button>
+            </td>
+        </tr>
     </form>
 </table>
 <hr/>
 <table>
     <tr><th>이름</th><th>메모</th><th>일시</th></tr>
     <tr th:each="obj : ${datalist}">
-        <td th:text="${obj.name}"></td>
-        <td th:text="${obj.memo}"></td>
+        <td th:attr="id='name-' + ${obj.id}, data-id=${obj.id}" style="cursor:pointer;" th:text="${obj.name}"></td>
+        <td th:attr="id='memo-' + ${obj.id}" th:text="${obj.memo}"></td>
         <td th:text="${obj.date}"></td>
     </tr>
 </table>
