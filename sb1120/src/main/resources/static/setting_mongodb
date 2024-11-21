@@ -4,7 +4,7 @@ docker exec -it mongodb-container bash
 
 show dbs
 
-use testDb
+use testdb
 
 db.data.insertMany([
 { "x": 30, "y": 30, "r": 5 },
