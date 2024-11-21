@@ -45,6 +45,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/love.forte.simple-robot.http/client-restTemplate
 //    implementation group: 'love.forte.simple-robot.http', name: 'client-restTemplate', version: '2.5.2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
 
 }
