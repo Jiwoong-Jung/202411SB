@@ -1,0 +1,25 @@
+docker exec -it mongodb-container bash
+
+ mongosh
+
+show dbs
+
+use testDb
+
+db.data.insertMany([
+{ "x": 30, "y": 30, "r": 5 },
+{ "x": 70, "y": 70, "r": 10 },
+{ "x": 110, "y": 110, "r": 15 },
+{ "x": 150, "y": 150, "r": 20 },
+{ "x": 190, "y": 190, "r": 25 },
+{ "x": 230, "y": 230, "r": 30 },
+{ "x": 270, "y": 270, "r": 35 },
+{ "x": 310, "y": 310, "r": 40 },
+{ "x": 350, "y": 350, "r": 45 },
+{ "x": 390, "y": 390, "r": 50 }
+])
+
+
+show collections
+
+ db.data.find()
